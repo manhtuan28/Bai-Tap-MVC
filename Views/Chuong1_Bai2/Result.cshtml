@@ -1,0 +1,30 @@
+﻿@model BaiTapMVC.Models.HoaDonDienViewModel
+@{
+    ViewBag.Title = "Kết quả";
+}
+<div class="w-75 mx-auto mt-4">
+    @if (!string.IsNullOrEmpty(Model.Loi))
+    {
+        <div class="alert alert-danger">@Model.Loi</div>
+        <a class="btn btn-secondary" href="@Url.Action("Index","Chuong1_Bai2")">Quay lại</a>
+    }
+    else
+    {
+        <table class="table table-bordered">
+            <tr>
+                <th>Chủ hộ:</th>
+                <td>@Model.ChuHo</td>
+            </tr>
+            <tr>
+                <th>Số điện tiêu thụ:</th>
+                <td>@Model.SoDienTieuThu kWh</td>
+            </tr>
+            <tr>
+                <th>Tiền phải trả:</th>
+                <td>@(Model.TienPhaiTra?.ToString("#,0")) Đồng</td>
+            </tr>
+        </table>
+
+        <a class="btn btn-secondary" href="@Url.Action("Index","Chuong1_Bai2")">Tính lại</a>
+    }
+</div>

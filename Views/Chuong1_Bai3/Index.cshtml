@@ -1,0 +1,38 @@
+﻿@model BaiTapMVC.Models.PTB2
+@{
+    ViewBag.Title = "Giải phương trình bậc 2";
+}
+
+@using (Html.BeginForm("Index", "Chuong1_Bai3", FormMethod.Post, new { @class = "w-75 mx-auto border p-3 mt-3" }))
+{
+    @Html.AntiForgeryToken()
+    <h4 class="text-center fw-bold">Giải phương trình bậc 2</h4>
+    <hr />
+
+    <div class="mb-3">
+        @Html.LabelFor(m => m.A, new { @class = "form-label" })
+        @Html.TextBoxFor(m => m.A, new { type = "number", step = "any", @class = "form-control", placeholder = "a", required = "required" })
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(m => m.B, new { @class = "form-label" })
+        @Html.TextBoxFor(m => m.B, new { type = "number", step = "any", @class = "form-control", placeholder = "b", required = "required" })
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(m => m.C, new { @class = "form-label" })
+        @Html.TextBoxFor(m => m.C, new { type = "number", step = "any", @class = "form-control", placeholder = "c", required = "required" })
+    </div>
+
+    <button type="submit" class="btn btn-dark w-100">Giải phương trình</button>
+
+    <div class="mt-3">
+        <h6 class="fw-bold">Kết quả:</h6>
+        @if (!string.IsNullOrWhiteSpace(Model.KetQua))
+        {
+            <div class="alert alert-light border">@Model.KetQua</div>
+        }
+        else
+        {
+            <div class="text-muted">Nhập a, b, c rồi bấm “Giải phương trình” nha.</div>
+        }
+    </div>
+}

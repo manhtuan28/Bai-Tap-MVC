@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<form action="/Chuong1_Bai1/Result" method="post" class="border w-75 mx-auto">
+    @Html.AntiForgeryToken()
+    <div class="mb-3 p-2 text-center">
+        <h3 class="fw-bold">Thực hiện tính</h3>
+    </div>
+    <hr />
+    <div class="p-2">
+        <div class="mb-3">
+            <label class="form-label">Nhập a:</label>
+            <input name="a" type="number" step="any" class="form-control" placeholder="Nhập a" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Nhập b:</label>
+            <input name="b" type="number" step="any" class="form-control" placeholder="Nhập b" required />
+        </div>
+        <div class="mb-3 d-xl-flex">
+            <div class="pe-2">
+                <span>Chọn phép tính: </span>
+            </div>
+            <div class="mb-3 form-check pe-3">
+                <input class="form-check-input" type="radio" name="radioTinh" id="radioCong" value="+" checked required/>
+                <label class="form-check-label" for="radioCong">Cộng</label>
+            </div>
+            <div class="mb-3 form-check pe-3">
+                <input class="form-check-input" type="radio" name="radioTinh" id="radioTru" value="-"/>
+                <label class="form-check-label" for="radioTru">Trừ</label>
+            </div>
+            <div class="mb-3 form-check pe-3">
+                <input class="form-check-input" type="radio" name="radioTinh" id="radioNhan" value="*"/>
+                <label class="form-check-label" for="radioNhan">Nhân</label>
+            </div>
+            <div class="mb-3 form-check pe-3">
+                <input class="form-check-input" type="radio" name="radioTinh" id="radioChia" value="/"/>
+                <label class="form-check-label" for="radioChia">Chia</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Calculate</button>
+    </div>
+</form>
