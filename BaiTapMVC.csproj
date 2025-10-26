@@ -127,10 +127,12 @@
     <Compile Include="Controllers\Chuong1_Bai1Controller.cs" />
     <Compile Include="Controllers\Chuong1_Bai2Controller.cs" />
     <Compile Include="Controllers\Chuong1_Bai3Controller.cs" />
+    <Compile Include="Controllers\HangHoaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\HangHoaViewModel.cs" />
     <Compile Include="Models\HoaDonDienViewModel.cs" />
     <Compile Include="Models\PTB2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -166,6 +168,9 @@
     <Content Include="Views\Chuong1_Bai2\Index.cshtml" />
     <Content Include="Views\Chuong1_Bai2\Result.cshtml" />
     <Content Include="Views\Chuong1_Bai3\Index.cshtml" />
+    <Content Include="Views\HangHoa\Nhap.cshtml" />
+    <Content Include="Views\HangHoa\_FormFields.cshtml" />
+    <Content Include="Views\HangHoa\ThanhTien.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

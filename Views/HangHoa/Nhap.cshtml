@@ -1,0 +1,137 @@
+﻿@{
+    ViewBag.Title = "Nhập hàng hóa";
+    var vi = new System.Globalization.CultureInfo("vi-VN");
+}
+<div class="container py-4">
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-dark text-white">
+                    <div class="d-flex align-items-center">
+                        <span class="fw-semibold">Nhập hàng hóa</span>
+                    </div>
+                </div>
+
+                @using (Html.BeginForm("ThanhTien_Request", "HangHoa", FormMethod.Post, new { @id = "hhForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Mã hàng</label>
+                                <input name="MaHang" class="form-control" placeholder="Ví dụ: A01" required />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Loại hàng</label>
+                                <select name="LoaiHang" class="form-select">
+                                    <option selected>Quần áo</option>
+                                    <option>Giày dép</option>
+                                    <option>Phụ kiện</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label">Tên hàng</label>
+                                <input name="TenHang" class="form-control" placeholder="Ví dụ: Áo sơ mi" required />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Đơn giá</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">₫</span>
+                                    <input id="DonGia" name="DonGia" class="form-control" inputmode="numeric"
+                                           placeholder="3,000" autocomplete="off" required />
+                                </div>
+                                <div class="form-text">Nhập số, có thể dùng dấu phẩy: 3,000; 150000…</div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Số lượng</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">SL</span>
+                                    <input id="SoLuong" name="SoLuong" class="form-control" inputmode="numeric"
+                                           placeholder="5,000" autocomplete="off" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer bg-light d-flex flex-wrap gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            TÍNH (Request)
+                        </button>
+                        <button type="submit" class="btn btn-outline-secondary"
+                                formaction="@Url.Action("ThanhTien_Form","HangHoa")">
+                            TÍNH (FormCollection)
+                        </button>
+                        <span class="ms-auto text-muted small">Tip: nhập xong xem tổng ở khung bên phải nha.</span>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-header bg-white">
+                    <span class="fw-semibold">Preview nhanh</span>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Đơn giá</span>
+                        <span id="PreDonGia" class="fw-semibold">—</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Số lượng</span>
+                        <span id="PreSoLuong" class="fw-semibold">—</span>
+                    </div>
+                    <hr />
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="fs-6">Thành tiền (ước tính)</span>
+                        <span id="PreThanhTien" class="fs-5 fw-bold text-success">—</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const vi = new Intl.NumberFormat('vi-VN');
+    const unformat = s => (s || '').toString().replace(/\./g, '').replace(/,/g, '').trim();
+
+    const donGiaEl = document.getElementById('DonGia');
+    const soLuongEl = document.getElementById('SoLuong');
+    const preDG = document.getElementById('PreDonGia');
+    const preSL = document.getElementById('PreSoLuong');
+    const preTT = document.getElementById('PreThanhTien');
+
+    function updatePreview() {
+        const dgRaw = unformat(donGiaEl.value);
+        const slRaw = unformat(soLuongEl.value);
+        const dg = Number(dgRaw || 0);
+        const sl = Number(slRaw || 0);
+
+        preDG.textContent = dg ? vi.format(dg) : '—';
+        preSL.textContent = sl ? vi.format(sl) : '—';
+        const tt = dg * sl;
+        preTT.textContent = tt ? vi.format(tt) + ' VNĐ' : '—';
+    }
+
+    function formatOnBlur(el) {
+        el.addEventListener('blur', () => {
+            const raw = unformat(el.value);
+            if (raw) el.value = vi.format(Number(raw));
+            updatePreview();
+        });
+        el.addEventListener('input', updatePreview);
+    }
+    formatOnBlur(donGiaEl);
+    formatOnBlur(soLuongEl);
+    updatePreview();
+
+    document.getElementById('hhForm').addEventListener('submit', function () {
+        donGiaEl.value = unformat(donGiaEl.value);
+        soLuongEl.value = unformat(soLuongEl.value);
+    });
+</script>
